@@ -4,7 +4,15 @@ Write servers in Rust. Because Rust is awesome.
 
 ## Installation and starting
 
+Requirements:
+
+* `cargo` and `rustup` are installed.
+* `postgres` is installed
+* `rustup install nightly`
+* `rustup default nightly`
+
 ```bash
+cargo install diesel_cli
 pg_ctl start
 # press CTRL-c
 createdb rocket_demo
