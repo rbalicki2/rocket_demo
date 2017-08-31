@@ -29,10 +29,13 @@ pub fn establish_connection() -> ConnectionResult<PgConnection> {
   PgConnection::establish(&database_url)
 }
 
+// This is the magic that allows us to get a DbConn directly in a route with no extra work
 impl<'a, 'r> FromRequest<'a, 'r> for DbConn {
   type Error = ();
 
   fn from_request(request: &'a Request<'r>) -> request::Outcome<DbConn, ()> {
+    // Rocket manages a connection pool in common for all of our requests.
+    // Here, we access that pool and attempt to retrieve a connection.
     let pool: State<ConnectionPool> = request.guard::<State<ConnectionPool>>()?;
     match pool.get() {
       Ok(conn) => Outcome::Success(DbConn(conn)),

@@ -31,7 +31,7 @@ pub mod todo;
 
 fn main() {
   let routes: Vec<Route> = routes![
-//    routes::get_todos,
+    routes::get_todos,
 //    routes::get_todo,
 //    routes::create_todo,
 //    routes::update_todo,
