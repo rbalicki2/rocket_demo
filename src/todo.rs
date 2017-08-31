@@ -33,3 +33,10 @@ impl<'a> FromParam<'a> for Todo {
     Ok(todo)
   }
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug, Insertable, AsChangeset)]
+#[table_name="todos"]
+pub struct NewTodo {
+  pub text: String,
+  pub completed: Option<bool>,
+}
