@@ -12,3 +12,10 @@ pub fn get_todos(
   todos::dsl::todos.load::<Todo>(&**conn)
     .map(Json)
 }
+
+#[get("/todos/<todo>")]
+pub fn get_todo(
+  todo: Todo
+) -> Json<Todo> {
+  Json(todo)
+}
