@@ -34,7 +34,7 @@ fn main() {
     routes::get_todos,
     routes::get_todo,
     routes::create_todo,
-//    routes::update_todo,
+    routes::update_todo,
   ];
 
   dotenv().ok();

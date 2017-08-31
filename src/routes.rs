@@ -1,6 +1,6 @@
 use rocket_contrib::Json;
 use diesel::prelude::*;
-use diesel::insert;
+use diesel::{insert, update};
 
 use todo::{Todo, NewTodo};
 use db;
@@ -28,6 +28,18 @@ pub fn create_todo(
 ) -> QueryResult<Json<Todo>> {
   insert(&*todo_data)
     .into(todos::table)
+    .get_result(&**conn)
+    .map(Json)
+}
+
+#[patch("/todos/<todo>", data="<todo_data>")]
+pub fn update_todo(
+  todo: Todo,
+  todo_data: Json<NewTodo>,
+  conn: db::DbConn,
+) -> QueryResult<Json<Todo>> {
+  update(todos::dsl::todos.find(todo.id))
+    .set(&*todo_data)
     .get_result(&**conn)
     .map(Json)
 }
